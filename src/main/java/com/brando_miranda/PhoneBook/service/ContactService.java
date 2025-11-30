@@ -17,6 +17,9 @@ public class ContactService {
     }
 
     public Contact createContact(Contact contact) {
+        if(contact.getName() == null || contact.getPhone() == null) {
+            throw new IllegalArgumentException("Os campos nome e telefone são obrigatórios.");
+        }
         return contactRepository.save(contact);
     }
 
@@ -25,7 +28,7 @@ public class ContactService {
     }
 
     public Contact getContactById(Long id) {
-        return contactRepository.findById(id).orElse(null);
+        return contactRepository.findById(id).orElseThrow(() -> new RuntimeException("Contato não encontrado com id: " + id));
     }
 
     public Contact updateContact(Long id, Contact contactDetails) {
