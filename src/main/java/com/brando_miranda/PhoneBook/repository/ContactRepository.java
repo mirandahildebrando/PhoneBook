@@ -8,6 +8,8 @@ import com.brando_miranda.PhoneBook.entity.Contact;
 @Repository
 public interface ContactRepository extends JpaRepository<Contact, Long> {
 
-    
+    boolean existsByName(String name);
+
+    boolean existsByPhone(String phone);
 
 }

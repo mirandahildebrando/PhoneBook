@@ -20,6 +20,13 @@ public class ContactService {
         if(contact.getName() == null || contact.getPhone() == null) {
             throw new IllegalArgumentException("Os campos nome e telefone são obrigatórios.");
         }
+        if(contactRepository.existsByName(contact.getName())) {
+            throw new IllegalArgumentException("Já existe um contato com esse nome.");
+        }
+
+        if(contactRepository.existsByPhone(contact.getPhone())) {
+            throw new IllegalArgumentException("Já existe um contato com esse telefone.");
+        }
         return contactRepository.save(contact);
     }
 
