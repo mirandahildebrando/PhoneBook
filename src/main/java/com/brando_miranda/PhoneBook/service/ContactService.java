@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.brando_miranda.DTO.ContactRequestDTO;
+import com.brando_miranda.DTO.ContactResponseDTO;
 import com.brando_miranda.PhoneBook.entity.Contact;
 import com.brando_miranda.PhoneBook.repository.ContactRepository;
 
@@ -16,18 +18,21 @@ public class ContactService {
         this.contactRepository = contactRepository;
     }
 
-    public Contact createContact(Contact contact) {
-        if(contact.getName() == null || contact.getPhone() == null) {
-            throw new IllegalArgumentException("Os campos nome e telefone são obrigatórios.");
-        }
-        if(contactRepository.existsByName(contact.getName())) {
-            throw new IllegalArgumentException("Já existe um contato com esse nome.");
-        }
+    public ContactResponseDTO createContact(ContactRequestDTO dto) {
 
-        if(contactRepository.existsByPhone(contact.getPhone())) {
-            throw new IllegalArgumentException("Já existe um contato com esse telefone.");
-        }
-        return contactRepository.save(contact);
+        Contact contact = new Contact();
+        contact.setName(dto.name());
+        contact.setPhone(dto.phone());
+
+        Contact saved = contactRepository.save(contact);
+
+        return new ContactResponseDTO(
+            saved.getId(),
+            saved.getName(),
+            saved.getPhone()
+        );
+
+        
     }
 
     public List<Contact> getAllContacts() {

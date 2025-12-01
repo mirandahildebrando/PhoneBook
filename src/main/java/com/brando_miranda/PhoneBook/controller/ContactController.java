@@ -2,6 +2,8 @@ package com.brando_miranda.PhoneBook.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.brando_miranda.DTO.ContactRequestDTO;
+import com.brando_miranda.DTO.ContactResponseDTO;
 import com.brando_miranda.PhoneBook.entity.Contact;
 import com.brando_miranda.PhoneBook.service.ContactService;
 
@@ -27,11 +29,11 @@ public class ContactController {
         this.contactService = contactService;
     }
 
-    @PostMapping
-    public ResponseEntity<Contact> createContact(@RequestBody Contact contact) {
-        Contact createdContact = contactService.createContact(contact);
-        return new ResponseEntity<>(createdContact, HttpStatus.CREATED);
-    } 
+    @PostMapping("/contacts")
+       public ResponseEntity<ContactResponseDTO> create(@RequestBody ContactRequestDTO dto) {
+       return ResponseEntity.ok(contactService.createContact(dto));
+}
+
 
     @GetMapping
     public ResponseEntity<List<Contact>> getAllContats() {
