@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.brando_miranda.DTO.ContactRequestDTO;
-import com.brando_miranda.DTO.ContactResponseDTO;
+import com.brando_miranda.PhoneBook.DTO.ContactRequestDTO;
+import com.brando_miranda.PhoneBook.DTO.ContactResponseDTO;
 import com.brando_miranda.PhoneBook.entity.Contact;
 import com.brando_miranda.PhoneBook.repository.ContactRepository;
 
